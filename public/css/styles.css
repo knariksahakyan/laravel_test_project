@@ -1,0 +1,21 @@
+#album_images
+{
+    border: solid gray 1px;
+    height: 400px;
+    overflow-y: scroll;
+}
+.image_container,
+.upload_button_container{
+    float:left;
+    padding:5px;
+    margin:5px;
+    position: relative;
+}
+.delete_image_button {
+    font-size: 50px;
+    color: gray;
+    left: 36%;
+    top: 26%;
+    position: absolute;
+    opacity: 1;
+}
