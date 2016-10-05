@@ -20,4 +20,8 @@ class UserAlbum extends Model
      * @var string
      */
     protected $table = 'user_albums';
+
+    public function images(){
+        return $this->hasMany('App\AlbumImage', 'album_id', 'id');
+    }
 }

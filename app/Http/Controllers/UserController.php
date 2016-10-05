@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Validation\Validator;
 
 class UserController extends Controller
 {
@@ -19,7 +19,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $user = Auth::user();
+        $this->user = Auth::user();
     }
 
     /**
@@ -34,12 +34,7 @@ class UserController extends Controller
     }
 
     public function getUserAlbums(){
-        $user_id = Auth::user()->id;
-        $albums = \DB::table('user_albums')
-            ->select('id', 'album_name')
-            ->where('user_id', '=', $user_id)
-            ->get();
-        return $albums;
+        return Auth::user()->albums;
     }
     public function addProfileImage(Request $request){
         $validator = $this->validator($request->all());

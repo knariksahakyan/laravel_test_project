@@ -18,16 +18,8 @@ $( document ).ready(function() {
             },
             error:function(response){
                 alert(response.responseJSON.file_to_upload[0]);
-            },
+            }
         });
-    });
-
-    $('#upload_album_images').on('click', function(e){
-        var selected_album_id = $('#select_album option:selected').val();
-        if(!selected_album_id) {
-            alert('album is not selected');
-            e.preventDefault();
-        }
     });
 
     $('#upload_album_images').on('change', function(){
@@ -43,6 +35,12 @@ $( document ).ready(function() {
                 getAlbumImages();
             },
         });
+    }).on('click', function(e){
+        var selected_album_id = $('#select_album option:selected').val();
+        if(!selected_album_id) {
+            alert('album is not selected');
+            e.preventDefault();
+        }
     });
 
     $('#add_album_button').on('click', function(e){
@@ -129,7 +127,6 @@ $( document ).ready(function() {
     });
 function addEvents(){
     $('.delete_image_button').on('click', function(){
-        alert('clicked s');
         var image_element_id = $(this).closest("div.image_container").find("img").attr("id");
         var selected_album_id = $('#select_album option:selected').val();
         var image_id = image_element_id.substr(8);

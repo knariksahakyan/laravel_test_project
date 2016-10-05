@@ -6,7 +6,7 @@ use App\AlbumImage;
 use App\UserAlbum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Validation\Validator;
 
 class UserAlbumController extends Controller
 {
@@ -20,7 +20,7 @@ class UserAlbumController extends Controller
 
     public function __construct()
     {
-        $user = Auth::user();
+        $this->user = Auth::user();
     }
 
 
@@ -45,17 +45,10 @@ class UserAlbumController extends Controller
     public function getAlbumImages(Request $request){
         $album_id = $request->album_id;
         $albumImagePath = 'images/albumPictures/';
-        $user_id = Auth::user()->id;
-        $album = \DB::table('user_albums')
-            ->select('id', 'album_name')
-            ->where('user_id', '=', $user_id)
-            ->where('id', '=', $album_id)
-            ->first();
+        $user = Auth::user();
+        $album = $user->albums()->where('id', $album_id)->first();
         if($album){
-            $images = \DB::table('album_images')
-                ->select('id', 'image_name', 'image_location')
-                ->where('album_id', '=', $album->id)
-                ->get();
+            $images = $album->images;
             $image_arr = [];
             if($images) {
                 foreach ($images as $image) {
